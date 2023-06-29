@@ -1,20 +1,20 @@
 
-module.exports.getDate = () => {
-  let today = new Date();
+exports.getDate = () => {
+  const today = new Date();
 
-  var options = {
+  const options = {
     weekday: "long",
     day: "numeric",
     month: "long",
   };
 
-  return today.toLocaleDateString("en-US", options);
+  return today.toLocaleDateString("hi-IN", options);
 };
 
-module.exports.getDay = () => {
-    let today = new Date();
+exports.getDay = () => {
+    const today = new Date();
   
-    var options = {
+    const options = {
       weekday: "long"
     };
   
