@@ -8,9 +8,7 @@ module.exports.getDate = () => {
     month: "long",
   };
 
-  day = today.toLocaleDateString("en-US", options);
-
-  return day;
+  return today.toLocaleDateString("en-US", options);
 };
 
 module.exports.getDay = () => {
@@ -20,7 +18,5 @@ module.exports.getDay = () => {
       weekday: "long"
     };
   
-    day = today.toLocaleDateString("en-US", options);
-  
-    return day;
+    return today.toLocaleDateString("en-US", options);
   };
