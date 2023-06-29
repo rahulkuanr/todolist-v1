@@ -1,41 +1,41 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 
+let items = [];
+let workItems = [];
+
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  let dayInNumber = new Date().getDay();
-  let day = "";
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-  switch (dayInNumber) {
-    case 0:
-      day = "Sunday";
-      break;
-    case 1:
-      day = "Monday";
-      break;
-    case 2:
-      day = "Tuesday";
-      break;
-    case 3:
-      day = "Wednesday";
-      break;
-    case 4:
-      day = "Thrusday";
-      break;
-    case 5:
-      day = "Friday";
-      break;
-    case 6:
-      day = "Saturday";
-      break;
-    default:
-      break;
+app.get("/", (req, res) => {
+  let day = date.getDate();
+  res.render("list", { listTitle: day, items });
+});
+
+app.post("/", (req, res) => {
+  let page = req.body.button;
+  let item = req.body.newItem;
+
+  if (page === "Work List") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
   }
-  // res.render("list", { day: day }); ----> can also be written like this
-  res.render("list", { day });
+});
+
+app.get("/work", (req, res) => {
+  res.render("list", { listTitle: "Work List", items: workItems });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
 app.listen(3000, () => {
